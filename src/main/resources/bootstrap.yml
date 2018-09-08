@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: Retail-v1
+
+server:
+  contextPath: /retail/v1
+
+feign:
+  redsky:
+    baseURL: https://redsky.target.com
+
+hystrix:
+  command:
+    default:
+      circuitBreaker:
+        enabled: true
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+  threadpool:
+    default:
+      coreSize: 25
+      maxQueueSize : 250
+      queueSizeRejectionThreshold : 200
+
+
+cassandra:
+  contactpoints: 127.0.0.1
+  keyspace: retail
+  username: cassandra
+  #should be handled securely
+  password: cassandra

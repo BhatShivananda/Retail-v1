@@ -1,0 +1,47 @@
+
+buildscript {
+    ext {
+        springBootVersion = '1.5.14.RELEASE'
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'groovy'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'application'
+
+ext['groovy.version'] = '2.5.1'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter',
+            'commons-codec:commons-codec:1.5',
+            'io.jsonwebtoken:jjwt:0.7.0',
+            'commons-logging:commons-logging:1.2',
+            'org.codehaus.groovy:groovy-all:2.5.1',
+            'org.spockframework:spock-core:1.1-groovy-2.4',
+            'org.spockframework:spock-spring:1.1-groovy-2.4',
+            'io.github.http-builder-ng:http-builder-ng-core:1.0.3',
+            'org.springframework.boot:spring-boot-starter-test',
+    )
+
+    compile('com.athaydes:spock-reports:1.4.0') {
+        transitive = false // this avoids affecting your version of Groovy/Spock
+    }
+
+}
+
+mainClassName = "com.app.func.RetailTestApplication"
+

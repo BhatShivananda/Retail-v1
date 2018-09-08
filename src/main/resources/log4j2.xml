@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Properties>
+        <Property name="env-name">${sys:env:-local}</Property>
+        <Property name="log-path">${sys:log.location:-logs}</Property>
+        <Property name="app-name">${sys:app.name:-Retail-v1}</Property>
+    </Properties>
+    <Appenders>
+        <RollingFile name="default-log" fileName="${log-path}/${app-name}_${env-name}_All.log"
+                     filePattern="${log-path}/${app-name}_${env-name}_All-%i.log">
+            <Policies>
+                <SizeBasedTriggeringPolicy size="50 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="3">
+                <!-- should result in up to 4 files including current, totalling 200MB -->
+            </DefaultRolloverStrategy>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="root" level="${sys:log.root.level:-INFO}" additivity="false">
+            <appender-ref ref="default-log"/>
+        </Logger>
+    </Loggers>
+</Configuration>

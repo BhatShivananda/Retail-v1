@@ -1,0 +1,3 @@
+rootProject.name = 'Retail-v1'
+include 'Retail-v1-Test'
+

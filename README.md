@@ -48,8 +48,20 @@ API documentation in Swagger 2.0 format is available at http://localhost:8080/re
 ````
 jacoco test coverage can be found here - http://localhost:63342/Retail-v1/build/reports/jacoco/test/html/index.html
 ````
-<img width="1036" alt="screen shot 2018-09-08 at 7 12 28 pm" src="https://user-images.githubusercontent.com/10213560/45259810-2d882500-b39b-11e8-83e6-222545099508.png">
+<img width="1041" alt="screen shot 2018-09-08 at 8 16 43 pm" src="https://user-images.githubusercontent.com/10213560/45260124-316c7500-b3a4-11e8-99bd-246c772ed8ac.png">
 
+
+## Authorization
+APIs need to have an access token (hard coded value for now)
+````
+Authorization: Bearer access_token
+````
+Authorization can be turned off with a config
+````
+service:
+    security:
+        proceedOnUnauthorized: true
+````
 
 ## Functional test suite
 ````
@@ -59,7 +71,7 @@ java -jar Retail-v1-Test.jar
 
 ## Log4j2
 ````
-log4j2is used for this implementation and logs are availble under - /Retail-v1/logs
+log4j2 is used for this implementation and logs are availble under - /Retail-v1/logs
 ````
 
 ## Metrics using dropwizards

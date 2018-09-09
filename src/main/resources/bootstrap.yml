@@ -31,3 +31,7 @@ cassandra:
   username: cassandra
   #should be handled securely
   password: cassandra
+
+bypass:
+  url:
+    list: /actuator,/health,/swagger-ui.html,/api-docs,/webjars/springfox-swagger-ui,/swagger-resources

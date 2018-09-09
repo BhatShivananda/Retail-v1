@@ -1,16 +1,22 @@
 package com.app.retail.config.swagger;
 
+import io.swagger.models.auth.In;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
+import org.springframework.http.HttpHeaders;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 @Configuration
 @EnableSwagger2
@@ -23,12 +29,17 @@ public class SpringfoxConfig {
         .apis(RequestHandlerSelectors.basePackage("com.app.retail"))
         .paths(PathSelectors.any())
         .build()
+        .securitySchemes(new ArrayList<>(Arrays.asList(apiKey())))
         .apiInfo(getApiInfo());
   }
 
   private ApiInfo getApiInfo() {
-    return new ApiInfo("Retail-v1", "Retail service", "1", "", new Contact("Shiva", "git link to be updated", ""), "",
+    return new ApiInfo("Retail-v1", "Retail service", "1", "", new Contact("Shiva", "https://github.com/BhatShivananda/Retail-v1", ""), "",
         "");
+  }
+
+  private ApiKey apiKey() {
+    return new ApiKey(HttpHeaders.AUTHORIZATION, HttpHeaders.AUTHORIZATION, In.HEADER.name());
   }
 
 }

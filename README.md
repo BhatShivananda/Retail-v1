@@ -2,15 +2,16 @@
 
 API aggregates product data from multiple sources and return it as JSON to the caller.
 
-## How to run this app locally
+## Steps to run this app locally
 
 ## 1. cassandra setup (https://github.com/riptano/ccm)
 ````
 brew install ccm
 ccm create test -v 3.11.2 -n 1 -s
-ccm node1 ring
-ccm node1 cqlsh
 
+Connect to cqlsh and execute below:
+
+ccm node1 cqlsh
 
 CREATE KEYSPACE retail WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 
@@ -24,11 +25,11 @@ CREATE TABLE IF NOT EXISTS retail.item_price (
 
 INSERT INTO retail.item_price(tcin, price, created_at, updated_at) VALUES ('13860428','123.23',1535383238852,1535383238852);
 ````
-## 2. Build it
+## 2. Build springboot (executable) jar
 
 Run below command to clone git repo
 ```
-git clone 
+git clone git@github.com:BhatShivananda/Retail-v1.git
 Retail-v1> sh gradlew clean build
 ```
 
@@ -41,10 +42,14 @@ Retail-v1> sh gradlew bootRun
 ````
 API documentation in Swagger 2.0 format is available at http://localhost:8080/retail/v1/swagger-ui.html
 ````
+<img width="1048" alt="screen shot 2018-09-08 at 7 09 09 pm" src="https://user-images.githubusercontent.com/10213560/45259792-d2563280-b39a-11e8-8745-ab851bd4c4ae.png">
+
 ## Test coverage
 ````
-Jococ has been used and test coverage can be found here - http://localhost:63342/Retail-v1/build/reports/jacoco/test/html/index.html
+jacoco test coverage can be found here - http://localhost:63342/Retail-v1/build/reports/jacoco/test/html/index.html
 ````
+<img width="1036" alt="screen shot 2018-09-08 at 7 12 28 pm" src="https://user-images.githubusercontent.com/10213560/45259810-2d882500-b39b-11e8-83e6-222545099508.png">
+
 
 ## Functional test suite
 ````
@@ -54,7 +59,7 @@ java -jar Retail-v1-Test.jar
 
 ## Log4j2
 ````
-log4j2 has been used and logs are availble under - /Retail-v1/logs
+log4j2is used for this implementation and logs are availble under - /Retail-v1/logs
 ````
 
 ## Metrics using dropwizards

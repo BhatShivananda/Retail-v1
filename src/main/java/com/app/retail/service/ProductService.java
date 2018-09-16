@@ -27,22 +27,27 @@ public class ProductService {
   public ProductResponse getProductDetails(String tcin) {
 
     RedskyResponse redskyResponse = redskyFeignClient.getProductDetails(tcin);
-    ItemPrice itemPrice = retailDaoImpl.getItemPrice(tcin);
 
-    Optional<String> productTitle = Optional.of(redskyResponse)
-        .map(RedskyResponse::getProduct)
-        .map(Product::getItem)
-        .map(Item::getProductDescription)
-        .map(ProductDescription::getTitle);
+    Optional<String> productTitle = Optional.empty();
+    if (null != redskyResponse) {
+      productTitle = Optional.of(redskyResponse)
+          .map(RedskyResponse::getProduct)
+          .map(Product::getItem)
+          .map(Item::getProductDescription)
+          .map(ProductDescription::getTitle);
 
-    if (productTitle.isPresent() && null != itemPrice && StringUtils.isNotBlank(itemPrice.getPrice())) {
-      return ProductResponse.builder()
-          .id(tcin)
-          .name(productTitle.get())
-          .currentPrice(CurrentPrice.builder().value(itemPrice.getPrice()).currencyCode("USD").build())
-          .build();
-
+      if (productTitle.isPresent()) {
+        ItemPrice itemPrice = retailDaoImpl.getItemPrice(tcin);
+        if (null != itemPrice && StringUtils.isNotBlank(itemPrice.getPrice())) {
+          return ProductResponse.builder()
+              .id(tcin)
+              .name(productTitle.get())
+              .currentPrice(CurrentPrice.builder().value(itemPrice.getPrice()).currencyCode("USD").build())
+              .build();
+        }
+      }
     }
+
     throw new ProductNotFoundException("product not found");
   }
 

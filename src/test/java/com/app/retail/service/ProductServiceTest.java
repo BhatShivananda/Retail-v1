@@ -108,4 +108,13 @@ public class ProductServiceTest {
             .build())
         .build();
   }
+
+
+  @Test(expected = ProductNotFoundException.class)
+  public void testGetProductDetailsNull() {
+    Mockito.when(redskyFeignClientMock.getProductDetails(Mockito.anyString())).thenReturn(null);
+    Mockito.when(retailDaoImplMock.getItemPrice(Mockito.anyString())).thenReturn(null);
+
+    ProductResponse productResponse = productService.getProductDetails("12345");
+  }
 }
